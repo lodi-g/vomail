@@ -10,6 +10,10 @@ services:
       dockerfile: dev.Dockerfile
     image: vomail-smtp-dev
     container_name: vomail-smtp-dev
+    environment:
+      - API_HOST=vomail-api-dev
+      - API_PORT=3000
+      - API_AUTH_TOKEN=secrettoken
     volumes:
       - ./smtp:/usr/src/app
 

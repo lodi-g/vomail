@@ -21,3 +21,7 @@ NOTE: This is not usable yet.
 - Edit the docker-compose.yml file to suit your needs
 - Run docker-compose up -d
 - Done!
+
+## Features
+
+[ ] Implement recipient's names

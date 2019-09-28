@@ -28,8 +28,6 @@ const uploadAttachment = (filename, data) =>
 const handler = async (ctx, next) => {
   const params = ctx.request.body
 
-  console.log(params.attachments)
-
   // Required auth token
   const authorization = ctx.req.headers['authorization']
   ctx.assert(authorization === authToken, 403, 'Missing / invalid authorization token')

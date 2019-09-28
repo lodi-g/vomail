@@ -40,7 +40,7 @@ const handler = async ctx => {
     })
   }
 
-  ctx.body = { data: ret }
+  ctx.body = { mails: ret }
 }
 
 module.exports = { handler }

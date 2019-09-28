@@ -1,16 +1,29 @@
+const axios = require('axios')
 const SMTPServer = require('smtp-server').SMTPServer
 const simpleParser = require('mailparser').simpleParser
 
 const receivingMails = {}
+const axiosInst = axios.create({
+  baseURL: `http://${process.env.API_HOST}:${process.env.API_PORT}`,
+  headers: {
+    Authorization: 'Basic ' + Buffer.from(process.env.API_AUTH_TOKEN).toString('base64'),
+  },
+})
 
-const sendToApi = parsedMail => {
-  console.log(parsedMail.subject)
-}
+const sendToApi = (parsedMail, rawMail) =>
+  axiosInst.post('/', {
+    subject: parsedMail.subject,
+    body: parsedMail.text,
+    bodyHtml: parsedMail.textAsHtml,
+    raw: rawMail,
+    to: parsedMail.to.value.map(rcpt => rcpt.address),
+    from: parsedMail.from.value[0].address,
+  })
 
 const parseAndSave = async mail => {
   try {
     const parsed = await simpleParser(mail.raw)
-    await sendToApi(parsed)
+    await sendToApi(parsed, mail.raw)
   } catch (e) {
     console.error(e)
   }

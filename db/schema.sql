@@ -4,7 +4,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `mails` (
-  `id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` BINARY(16) NOT NULL PRIMARY KEY,
   `subject` TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `body` TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `body_html` TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -15,13 +15,13 @@ CREATE TABLE IF NOT EXISTS `mails` (
 
 CREATE TABLE IF NOT EXISTS `attachments` (
   `id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `mail_id` INT(11) NOT NULL,
+  `mail_id` BINARY(16) NOT NULL,
   `filename` TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `mail_id` INT(11) NOT NULL,
+  `mail_id` BINARY(16) NOT NULL,
   `address` TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` ENUM('from', 'to', 'cc', 'bcc') NOT NULL

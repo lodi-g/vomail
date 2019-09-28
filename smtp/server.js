@@ -4,7 +4,7 @@ const simpleParser = require('mailparser').simpleParser
 
 const receivingMails = {}
 const axiosInst = axios.create({
-  baseURL: `http://${process.env.API_HOST}:${process.env.API_PORT}`,
+  baseURL: `http://${process.env.API_HOST}:${process.env.API_PORT}/mails`,
   headers: {
     Authorization: 'Basic ' + Buffer.from(process.env.API_AUTH_TOKEN).toString('base64'),
   },

@@ -1,11 +1,14 @@
+const URLSafeBase64 = require('urlsafe-base64')
+const uuidv4 = require('uuid/v4')
+
 const knex = require('../knex')
 const { addressTypes } = require('../helpers')
 
 const authToken = 'Basic ' + Buffer.from(process.env.SMTP_AUTH_TOKEN).toString('base64')
 
 // Abstracting SQL builder
-const insertMail = (subject, body, bodyHtml, raw) =>
-  knex.insert({ subject, body, body_html: bodyHtml, raw }).into('mails')
+const insertMail = (id, subject, body, bodyHtml, raw) =>
+  knex.insert({ id, subject, body, body_html: bodyHtml, raw }).into('mails')
 
 const insertAddress = (mailId, person, type) =>
   knex
@@ -28,10 +31,10 @@ const handler = async (ctx, next) => {
       ctx.assert(Array.isArray(params[field]), 400, `${field} field must be an array`),
   )
 
-  let mailId
+  const mailId = Buffer.from(uuidv4(null, new Array(), 0))
   try {
     // Inserting mail
-    mailId = (await insertMail(params.subject, params.body, params.bodyHtml, params.raw))[0]
+    await insertMail(mailId, params.subject, params.body, params.bodyHtml, params.raw)
 
     // Inserting addresses
     await insertAddress(mailId, params.from, addressTypes.FROM)
@@ -45,12 +48,13 @@ const handler = async (ctx, next) => {
 
     // TODO: Inserting attachments
   } catch (e) {
+    console.error(e)
     ctx.status = 500
     return next()
   }
 
   ctx.body = {
-    id: mailId,
+    id: URLSafeBase64.encode(mailId),
   }
 }
 

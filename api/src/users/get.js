@@ -1,3 +1,5 @@
+const URLSafeBase64 = require('urlsafe-base64')
+
 const knex = require('../knex')
 const { addressTypes } = require('../helpers')
 
@@ -30,7 +32,7 @@ const handler = async ctx => {
   const ret = []
   for (let i = 0; i < mails.length; i++) {
     ret.push({
-      id: mails[i].id,
+      id: URLSafeBase64.encode(mails[i].id),
       receivedOn: mails[i].received_on,
       subject: mails[i].subject,
       from: {

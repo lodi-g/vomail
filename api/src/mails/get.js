@@ -1,3 +1,5 @@
+const URLSafeBase64 = require('urlsafe-base64')
+
 const knex = require('../knex')
 const { addressTypes } = require('../helpers')
 
@@ -40,7 +42,7 @@ const getAttachments = results =>
 
 // Route handler
 const handler = async (ctx, next) => {
-  const mailId = ctx.params.id
+  const mailId = URLSafeBase64.decode(ctx.params.id)
 
   const sqlResults = await getMail(mailId)
   if (sqlResults.length === 0) {
@@ -66,7 +68,7 @@ const handler = async (ctx, next) => {
   delete mail['type']
   delete mail['filename']
 
-  ctx.body = mail
+  ctx.body = { ...mail, id: ctx.params.id }
 }
 
 module.exports = { handler }

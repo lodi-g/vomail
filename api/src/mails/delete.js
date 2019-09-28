@@ -1,3 +1,4 @@
+const URLSafeBase64 = require('urlsafe-base64')
 const knex = require('../knex')
 
 // Abstrating SQL builder
@@ -9,7 +10,7 @@ const deleteMail = mailId =>
 
 // Route handler
 const handler = async (ctx, next) => {
-  const mailId = ctx.params.id
+  const mailId = URLSafeBase64.decode(ctx.params.id)
 
   const n = await deleteMail(mailId)
   if (n === 0) {

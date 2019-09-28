@@ -1,3 +1,4 @@
+const URLSafeBase64 = require('urlsafe-base64')
 const knex = require('../knex')
 
 // Abstracting SQL builder
@@ -9,7 +10,7 @@ const patchMail = (mailId, read) =>
 
 // Route handler
 const handler = async (ctx, next) => {
-  const mailId = ctx.params.id
+  const mailId = URLSafeBase64.decode(ctx.params.id)
 
   const params = ctx.request.body
   ctx.assert(params.read === true || params.read === false, 400, 'read must be a boolean')

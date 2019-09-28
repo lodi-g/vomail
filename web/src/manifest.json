@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "short_name": "web",
+  "name": "vomail-web",
+  "short_name": "vomail-web",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

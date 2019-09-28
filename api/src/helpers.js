@@ -1,7 +1,11 @@
 const required = requirements => {
   return async (ctx, next) => {
     for (const r of requirements) {
-      ctx.assert(ctx.request.body[r], 400, `Query must contain ${requirements} fields`)
+      ctx.assert(
+        ctx.request.body[r] !== undefined,
+        400,
+        `Query must contain ${requirements} fields`,
+      )
     }
     await next()
   }

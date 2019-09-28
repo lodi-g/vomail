@@ -19,6 +19,7 @@ services:
     environment:
       - API_HOST=vomail-api
       - API_PORT=3000
+      - API_AUTH_TOKEN=secrettoken
     ports:
       - '2525:25'
 
@@ -30,6 +31,8 @@ services:
       - DB_HOST=vomail-db
       - DB_USER=root
       - DB_PASSWORD=toor
+      - DB_NAME=vomail
+      - SMTP_AUTH_TOKEN=secrettoken
     ports:
       - '3000:3000'
     depends_on:

@@ -1,13 +1,13 @@
 const Router = require('koa-router')
 
-const package = require('../package.json')
-const { required } = require('./helpers')
-const { get, create, patch, del } = require('./handlers')
+const { required } = require('../helpers')
+const get = require('./get')
+const create = require('./create')
+const patch = require('./patch')
+const del = require('./delete')
 
-const router = new Router()
-
-router.get('/', ctx => {
-  ctx.body = `${package.name} v${package.version}\n${package.description}`
+const router = new Router({
+  prefix: '/mails',
 })
 
 router.get('/:id', get.handler)

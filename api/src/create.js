@@ -44,7 +44,7 @@ const handler = async (ctx, next) => {
     // TODO: Inserting attachments
   } catch (e) {
     ctx.status = 500
-    next()
+    return next()
   }
 
   ctx.body = {

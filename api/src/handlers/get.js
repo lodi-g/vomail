@@ -1,5 +1,5 @@
-const knex = require('./knex')
-const { addressTypes } = require('./helpers')
+const knex = require('../knex')
+const { addressTypes } = require('../helpers')
 
 // Abstracting SQL builder
 const getMail = mailId =>

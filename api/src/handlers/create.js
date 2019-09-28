@@ -1,5 +1,5 @@
-const knex = require('./knex')
-const { addressTypes } = require('./helpers')
+const knex = require('../knex')
+const { addressTypes } = require('../helpers')
 
 const authToken = 'Basic ' + Buffer.from(process.env.SMTP_AUTH_TOKEN).toString('base64')
 

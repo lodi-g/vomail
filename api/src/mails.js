@@ -2,10 +2,7 @@ const Router = require('koa-router')
 
 const package = require('../package.json')
 const { required } = require('./helpers')
-const get = require('./get')
-const create = require('./create')
-const patch = require('./patch')
-const del = require('./delete')
+const { get, create, patch, del } = require('./handlers')
 
 const router = new Router()
 

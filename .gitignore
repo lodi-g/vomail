@@ -1,5 +1,7 @@
 web/build
 db/data
+api/uploads/*
+!api/uploads/.gitkeep
 
 # Created by https://www.gitignore.io/api/python,node
 # Edit at https://www.gitignore.io/?templates=python,node

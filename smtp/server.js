@@ -18,6 +18,7 @@ const sendToApi = (parsedMail, rawMail) =>
     raw: rawMail,
     to: parsedMail.to.value,
     from: parsedMail.from.value[0],
+    attachments: parsedMail.attachments,
   })
 
 const parseAndSave = async mail => {

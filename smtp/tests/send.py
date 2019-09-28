@@ -16,7 +16,7 @@ def main(args):
 
     msg = EmailMessage()
     msg["Subject"] = args.subject
-    msg["From"] = args.sender
+    msg["From"] = f"{args.sender_name} <{args.sender}>"
     msg["To"] = recipients
     msg.set_content(args.body)
 
@@ -42,6 +42,7 @@ if __name__ == "__main__":
                     help="Comma separated list of recipients' addresses")
     ap.add_argument("-f", "--from", dest="sender", default="from@from.com",
                     help="Sender's address")
+    ap.add_argument("--sender-name", default="John Doe", help="Sender's name")
     ap.add_argument("-b", "--body", help="Mail's body", default=lorem_ipsum)
     ap.add_argument("-a", "--attachments",
                     help="Mail's attachments. Images only.", nargs="*")

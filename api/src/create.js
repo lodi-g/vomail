@@ -7,8 +7,10 @@ const authToken = 'Basic ' + Buffer.from(process.env.SMTP_AUTH_TOKEN).toString('
 const insertMail = (subject, body, bodyHtml, raw) =>
   knex.insert({ subject, body, body_html: bodyHtml, raw }).into('mails')
 
-const insertAddress = (mailId, address, type) =>
-  knex.insert({ mail_id: mailId, address, type }).into('addresses')
+const insertAddress = (mailId, person, type) =>
+  knex
+    .insert({ mail_id: mailId, address: person.address, name: person.name, type })
+    .into('addresses')
 
 // Route handler
 const handler = async (ctx, next) => {

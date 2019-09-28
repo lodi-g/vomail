@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `attachments` (
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `mail_id` INT(11) NOT NULL,
-  `address` TEXT NOT NULL,
+  `address` TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` ENUM('from', 'to', 'cc', 'bcc') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

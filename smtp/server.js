@@ -16,8 +16,8 @@ const sendToApi = (parsedMail, rawMail) =>
     body: parsedMail.text,
     bodyHtml: parsedMail.textAsHtml,
     raw: rawMail,
-    to: parsedMail.to.value.map(rcpt => rcpt.address),
-    from: parsedMail.from.value[0].address,
+    to: parsedMail.to.value,
+    from: parsedMail.from.value[0],
   })
 
 const parseAndSave = async mail => {

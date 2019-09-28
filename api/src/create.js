@@ -26,9 +26,10 @@ const handler = async (ctx, next) => {
       ctx.assert(Array.isArray(params[field]), 400, `${field} field must be an array`),
   )
 
+  let mailId
   try {
     // Inserting mail
-    const mailId = (await insertMail(params.subject, params.body, params.bodyHtml, params.raw))[0]
+    mailId = (await insertMail(params.subject, params.body, params.bodyHtml, params.raw))[0]
 
     // Inserting addresses
     await insertAddress(mailId, params.from, addressTypes.FROM)

@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `type` ENUM('from', 'to', 'cc', 'bcc') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `attachments` ADD FOREIGN KEY (`mail_id`) REFERENCES `mails` (`id`);
+ALTER TABLE `attachments` ADD FOREIGN KEY (`mail_id`) REFERENCES `mails` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `addresses` ADD FOREIGN KEY (`mail_id`) REFERENCES `mails` (`id`);
+ALTER TABLE `addresses` ADD FOREIGN KEY (`mail_id`) REFERENCES `mails` (`id`) ON DELETE CASCADE;
 
 COMMIT;

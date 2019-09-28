@@ -11,7 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.8.2"
+    "knex": "^0.19.4",
+    "koa": "^2.8.2",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.17.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

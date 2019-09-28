@@ -1,9 +1,11 @@
 const Koa = require('koa')
-const app = new Koa()
+const koaBody = require('koa-body')
 
-// response
-app.use(ctx => {
-  ctx.body = 'Hello Koa'
-})
+const mails = require('./src/mails')
+
+const app = new Koa()
+app.use(koaBody())
+
+app.use(mails.routes())
 
 app.listen(3000)

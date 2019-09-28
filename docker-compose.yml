@@ -1,0 +1,49 @@
+version: '3.7'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: vomail-db
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - MYSQL_DATABASE=vomail
+      - MYSQL_ROOT_PASSWORD=toor
+    restart: always
+
+  smtp:
+    build: ./smtp
+    image: vomail-smtp
+    container_name: vomail-smtp
+    environment:
+      - API_HOST=vomail-api
+      - API_PORT=3000
+    ports:
+      - '2525:25'
+
+  api:
+    build: ./api
+    image: vomail-api
+    container_name: vomail-api
+    environment:
+      - DB_HOST=vomail-db
+      - DB_USER=root
+      - DB_PASSWORD=toor
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+      - smtp
+
+  web:
+    build: ./web
+    image: vomail-web
+    container_name: vomail-web
+    environment:
+      - API_HOST=localhost
+      - API_PORT=3000
+    ports:
+      - '8000:80'
+    depends_on:
+      - api

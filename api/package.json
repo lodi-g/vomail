@@ -1,0 +1,19 @@
+{
+  "name": "vomail-api",
+  "version": "0.0.1",
+  "description": "Vomail's API server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node_modules/.bin/nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

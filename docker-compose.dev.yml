@@ -1,0 +1,34 @@
+# for development use only
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml <command>
+
+version: '3.7'
+
+services:
+  smtp:
+    build:
+      context: ./smtp/
+      dockerfile: dev.Dockerfile
+    image: vomail-smtp-dev
+    container_name: vomail-smtp-dev
+    volumes:
+      - ./smtp:/usr/src/app
+
+  api:
+    build:
+      context: ./api/
+      dockerfile: dev.Dockerfile
+    image: vomail-api-dev
+    container_name: vomail-api-dev
+    volumes:
+      - ./api:/usr/src/app
+
+  web:
+    build:
+      context: ./web/
+      dockerfile: dev.Dockerfile
+    image: vomail-web-dev
+    container_name: vomail-web-dev
+    volumes:
+      - ./web:/usr/src/app
+    ports:
+      - '8080:8080'

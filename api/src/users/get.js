@@ -6,43 +6,41 @@ const { addressTypes } = require('../helpers')
 // Abstracting SQL builder
 const getMailsToUser = mailAddress =>
   knex
-    .select('mails.id', 'mails.received_on', 'mails.subject')
-    .from('mails')
-    .join('addresses', { 'addresses.mail_id': 'mails.id' })
-    .where({ 'addresses.address': mailAddress, 'addresses.type': addressTypes.to })
-
-const getSendersToUser = mailIds =>
-  knex
-    .select('addresses.address', 'addresses.name')
-    .from('addresses')
-    .whereIn('mail_id', mailIds)
-    .where({ 'addresses.type': addressTypes.from })
+    .select(
+      'a.address AS sender_address',
+      'a.name AS sender_name',
+      'm.id',
+      'm.subject',
+      'm.received_on',
+    )
+    .from({ a: 'addresses' })
+    .join({ m: 'mails' }, { 'm.id': 'a.mail_id' })
+    .where({ 'a.type': addressTypes.from })
+    .whereIn('a.mail_id', qb =>
+      qb
+        .select('m2.id')
+        .from({ m2: 'mails' })
+        .join({ a2: 'addresses' }, { 'a2.mail_id': 'm2.id' })
+        .where({ 'a2.address': mailAddress, 'a2.type': 'to' })
+        .orderBy('m2.received_on'),
+    )
+    .orderBy('m.received_on')
 
 // Route handler
 const handler = async ctx => {
   const mailAddress = ctx.params.mailAddress
 
-  const mails = await getMailsToUser(mailAddress)
-  const mailIds = mails.map(result => result.id)
+  const mails = await getMailsToUser(mailAddress).map(mail => ({
+    id: URLSafeBase64.encode(mail.id),
+    receivedOn: mail.received_on,
+    subject: mail.subject,
+    from: {
+      address: mail.sender_address,
+      name: mail.sender_name,
+    },
+  }))
 
-  const senders = await getSendersToUser(mailIds)
-
-  ctx.assert(mails.length === senders.length, 500)
-
-  const ret = []
-  for (let i = 0; i < mails.length; i++) {
-    ret.push({
-      id: URLSafeBase64.encode(mails[i].id),
-      receivedOn: mails[i].received_on,
-      subject: mails[i].subject,
-      from: {
-        address: senders[i].address,
-        name: senders[i].name,
-      },
-    })
-  }
-
-  ctx.body = { mails: ret }
+  ctx.body = { mails }
 }
 
 module.exports = { handler }

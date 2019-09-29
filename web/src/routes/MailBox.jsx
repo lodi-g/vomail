@@ -76,6 +76,11 @@ class MailBox extends React.Component {
           />
         </Row>
         <div className="mt-5">
+          {mails.length === 0 && (
+            <p className="text-center">
+              This is empty. Click refresh if you are awaiting new mails.
+            </p>
+          )}
           {mails.map(mail => (
             <MailCard {...mail} key={mail.subject} className="my-3" onSelect={this.selectMail} />
           ))}

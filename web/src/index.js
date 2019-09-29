@@ -1,4 +1,8 @@
-import './style'
-import App from './components/app'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-export default App
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css'
+import App from './components/App.jsx'
+
+ReactDOM.render(<App />, document.getElementById('root'))

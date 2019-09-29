@@ -44,8 +44,9 @@ services:
     image: vomail-web
     container_name: vomail-web
     environment:
-      - API_HOST=localhost
-      - API_PORT=3000
+      - REACT_APP_API_HOST=localhost
+      - REACT_APP_API_PORT=3000
+      - REACT_APP_DOMAINS=teamjul.co,lodi.me
     ports:
       - '8000:80'
     depends_on:

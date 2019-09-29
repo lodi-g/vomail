@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -11,6 +12,8 @@ import VomailApi from '../helpers/VomailApi'
 class MailBox extends React.Component {
   state = {
     mails: [],
+    redirect: false,
+    clickedMailId: '',
   }
 
   getMailAddress = () => this.props.match.params.mailAddress
@@ -51,13 +54,22 @@ class MailBox extends React.Component {
     this.setState({ mails })
   }
 
+  onClick = id => {
+    this.setState({ redirect: true, clickedMailId: id })
+  }
+
   async componentDidMount() {
     this.refresh()
   }
 
   render() {
     const mailAddress = this.getMailAddress()
-    const { mails } = this.state
+    const { mails, redirect, clickedMailId } = this.state
+
+    if (redirect) {
+      const { url } = this.props.match
+      return <Redirect push to={`${url}/${clickedMailId}`} />
+    }
 
     return (
       <Container className="mt-5">
@@ -82,7 +94,13 @@ class MailBox extends React.Component {
             </p>
           )}
           {mails.map(mail => (
-            <MailCard {...mail} key={mail.subject} className="my-3" onSelect={this.selectMail} />
+            <MailCard
+              {...mail}
+              key={mail.subject}
+              className="my-3"
+              onSelect={this.selectMail}
+              onClick={this.onClick}
+            />
           ))}
         </div>
       </Container>

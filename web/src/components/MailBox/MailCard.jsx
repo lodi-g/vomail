@@ -3,11 +3,21 @@ import moment from 'moment'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 
-const MailCard = ({ id, subject, receivedOn, from, className, read, selected, onSelect }) => (
+const MailCard = ({
+  id,
+  subject,
+  receivedOn,
+  from,
+  className,
+  read,
+  selected,
+  onSelect,
+  onClick,
+}) => (
   <Card className={className}>
     <Card.Body>
       <div className="d-flex h-100">
-        <label className="d-flex h-100" htmlFor={`checkbox-${id}`}>
+        <label className="d-flex h-100" htmlFor={`checkbox-${id}`} style={{ cursor: 'pointer' }}>
           <span className="mr-3 align-self-center">
             <Form.Group className="mb-0" controlId="formBasicCheckbox">
               <Form.Check
@@ -19,7 +29,7 @@ const MailCard = ({ id, subject, receivedOn, from, className, read, selected, on
             </Form.Group>
           </span>
         </label>
-        <div className="w-100">
+        <div className="w-100" style={{ cursor: 'pointer' }} onClick={() => onClick(id)}>
           {!read ? (
             <Card.Title>
               <span>Subject: {subject}</span>

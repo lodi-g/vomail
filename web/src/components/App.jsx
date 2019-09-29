@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import HomeHeader from './HomeHeader'
 import Header from './Header'
 
 import Home from '../routes/Home'
@@ -12,7 +11,7 @@ const App = () => (
   <Router>
     <Switch>
       <Route exact path="/">
-        <HomeHeader />
+        <Header isHomeHeader={true} />
         <Home />
       </Route>
       <Route
@@ -20,7 +19,7 @@ const App = () => (
         path="/:mailAddress"
         render={props => (
           <>
-            <Header {...props} />
+            <Header isHomeHeader={false} {...props} />
             <MailBox {...props} />
           </>
         )}
@@ -30,7 +29,7 @@ const App = () => (
         path="/:mailAddress/:mailId"
         render={props => (
           <>
-            <Header {...props} />
+            <Header isHomeHeader={false} {...props} />
             <Mail {...props} />
           </>
         )}

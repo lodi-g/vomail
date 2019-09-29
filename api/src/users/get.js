@@ -12,6 +12,7 @@ const getMailsToUser = mailAddress =>
       'm.id',
       'm.subject',
       'm.received_on',
+      'm.read',
     )
     .from({ a: 'addresses' })
     .join({ m: 'mails' }, { 'm.id': 'a.mail_id' })
@@ -34,6 +35,7 @@ const handler = async ctx => {
     id: URLSafeBase64.encode(mail.id),
     receivedOn: mail.received_on,
     subject: mail.subject,
+    read: mail.read,
     from: {
       address: mail.sender_address,
       name: mail.sender_name,

@@ -18,12 +18,37 @@ class MailBox extends React.Component {
   refresh = async () => {
     const mailAddress = this.getMailAddress()
 
-    const mails = (await VomailApi.getMailsByAddress(mailAddress)).data.mails
+    const mails = (await VomailApi.getMailsByAddress(mailAddress)).data.mails.map(mail => ({
+      ...mail,
+      selected: false,
+    }))
     this.setState({ mails })
   }
 
+  mark = async ({ read }) => {
+    const promises = this.state.mails
+      .filter(mail => mail.selected)
+      .map(mail => VomailApi.patchMail(mail.id, { read }))
+
+    await Promise.all(promises)
+    this.refresh()
+  }
+
+  delete = async () => {
+    const promises = this.state.mails
+      .filter(mail => mail.selected)
+      .map(mail => VomailApi.deleteMail(mail.id))
+
+    await Promise.all(promises)
+    this.refresh()
+  }
+
   selectMail = id => {
-    console.log('selecting id', id)
+    const { mails } = this.state
+    const mail = mails.find(mail => mail.id === id)
+
+    mail.selected = !mail.selected
+    this.setState({ mails })
   }
 
   async componentDidMount() {

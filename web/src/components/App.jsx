@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Header'
 
 import Home from '../routes/Home'
-import MailBox from '../routes/mailbox'
-import Mail from '../routes/mail'
+import MailBox from '../routes/MailBox'
+import Mail from '../routes/Mail'
 
 const App = () => (
   <Router>

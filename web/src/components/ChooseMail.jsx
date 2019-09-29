@@ -11,14 +11,8 @@ if (process.env.REACT_APP_DOMAINS) {
 }
 
 class ChooseMail extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      currentUsername: props.username || '',
-      currentDomain: props.domain || 'Select a domain',
-      shouldRedirect: false,
-    }
+  state = {
+    shouldRedirect: false,
   }
 
   static getDomains() {
@@ -29,40 +23,13 @@ class ChooseMail extends React.Component {
     this.setState({ shouldRedirect: true })
   }
 
-  onChangeUsername = e => {
-    this.setState({
-      currentUsername: e.currentTarget.value,
-    })
-  }
-
-  onClickDomain = domain => {
-    this.setState({
-      currentDomain: domain,
-    })
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.shouldRedirect && nextState.shouldRedirect) {
-      nextState.shouldRedirect = false
-    }
-
-    if (nextProps.username !== this.state.currentUsername) {
-      nextState.currentUsername = nextProps.username
-    }
-    if (nextProps.domain !== this.state.currentDomain) {
-      nextState.currentDomain = nextProps.domain
-    }
-
-    return true
-  }
-
   render() {
-    const { className } = this.props
-    const { currentUsername, currentDomain, shouldRedirect } = this.state
+    const { className, username, domain, onChangeUsername, onClickDomain } = this.props
+    const { shouldRedirect } = this.state
 
     if (shouldRedirect) {
-      const mail = currentUsername + '@' + currentDomain
-      return <Redirect push to={{ pathname: '/' + mail }} />
+      const mail = `${username}@${domain}`
+      return <Redirect push to={`/${mail}`} />
     }
 
     return (
@@ -71,17 +38,14 @@ class ChooseMail extends React.Component {
           type="text"
           placeholder="Mail address"
           className="mr-sm-2"
-          value={currentUsername}
-          onChange={this.onChangeUsername}
+          value={username}
+          onChange={onChangeUsername}
         />
         <Dropdown className="mr-2">
-          <Dropdown.Toggle variant="primary">{currentDomain}</Dropdown.Toggle>
+          <Dropdown.Toggle variant="primary">{domain}</Dropdown.Toggle>
           <Dropdown.Menu>
             {domains.map(possibleDomain => (
-              <Dropdown.Item
-                onClick={() => this.onClickDomain(possibleDomain)}
-                key={possibleDomain}
-              >
+              <Dropdown.Item onClick={() => onClickDomain(possibleDomain)} key={possibleDomain}>
                 {possibleDomain}
               </Dropdown.Item>
             ))}

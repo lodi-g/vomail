@@ -9,21 +9,33 @@ import ChooseMail from '../components/ChooseMail'
 
 class Home extends React.Component {
   state = {
-    randomUsername: '',
-    randomDomain: '',
+    username: '',
+    domain: ChooseMail.getDomains()[0],
+  }
+
+  onChangeUsername = e => {
+    this.setState({
+      username: e.currentTarget.value,
+    })
+  }
+
+  onClickDomain = domain => {
+    this.setState({
+      domain,
+    })
   }
 
   generate = () => {
     const domains = ChooseMail.getDomains()
 
-    const randomDomain = domains[Math.floor(Math.random() * domains.length)]
-    const randomUsername = faker.internet.userName()
+    const domain = domains[Math.floor(Math.random() * domains.length)]
+    const username = faker.internet.userName()
 
-    this.setState({ randomDomain, randomUsername })
+    this.setState({ domain, username })
   }
 
   render() {
-    const { randomDomain, randomUsername } = this.state
+    const { domain, username } = this.state
 
     return (
       <Container className="mt-5 text-center">
@@ -56,8 +68,10 @@ class Home extends React.Component {
           <Col>
             <ChooseMail
               className="justify-content-center"
-              username={randomUsername}
-              domain={randomDomain}
+              username={username}
+              domain={domain}
+              onChangeUsername={this.onChangeUsername}
+              onClickDomain={this.onClickDomain}
             />
           </Col>
         </Row>

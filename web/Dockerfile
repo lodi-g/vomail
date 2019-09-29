@@ -4,6 +4,10 @@ FROM node:12-alpine AS build
 WORKDIR /usr/src/app
 COPY package*.json ./
 
+ARG REACT_APP_API_HOST
+ARG REACT_APP_API_PORT
+ARG REACT_APP_DOMAINS
+
 RUN npm i
 
 COPY . .

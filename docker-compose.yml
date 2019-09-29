@@ -40,13 +40,14 @@ services:
       - smtp
 
   web:
-    build: ./web
+    build:
+      context: ./web
+      args:
+        - REACT_APP_API_HOST=localhost
+        - REACT_APP_API_PORT=3000
+        - REACT_APP_DOMAINS=teamjul.co,lodi.me
     image: vomail-web
     container_name: vomail-web
-    environment:
-      - REACT_APP_API_HOST=localhost
-      - REACT_APP_API_PORT=3000
-      - REACT_APP_DOMAINS=teamjul.co,lodi.me
     ports:
       - '8000:80'
     depends_on:

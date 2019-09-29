@@ -58,7 +58,7 @@ const handler = async (ctx, next) => {
     raw: sqlResults[0].raw,
     read: sqlResults[0].read,
     receivedOn: sqlResults[0].received_on,
-    from: getAddresses(sqlResults, addressTypes.from),
+    from: getAddresses(sqlResults, addressTypes.from)[0],
     to: getAddresses(sqlResults, addressTypes.to),
     cc: getAddresses(sqlResults, addressTypes.cc),
     bcc: getAddresses(sqlResults, addressTypes.bcc),

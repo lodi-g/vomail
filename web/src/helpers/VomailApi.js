@@ -2,11 +2,16 @@ import Axios from 'axios'
 
 const [host, port] = [process.env.REACT_APP_API_HOST, process.env.REACT_APP_API_PORT]
 
+const baseURL = `http://${host}:${port}`
 const axiosInstance = Axios.create({
-  baseURL: `http://${host}:${port}`,
+  baseURL,
 })
 
 class VomailApi {
+  static getUrl() {
+    return baseURL
+  }
+
   static getMailsByAddress(address) {
     return axiosInstance.get(`/users/${address}`)
   }

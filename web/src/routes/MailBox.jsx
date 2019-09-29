@@ -16,10 +16,8 @@ class MailBox extends React.Component {
     clickedMailId: '',
   }
 
-  getMailAddress = () => this.props.match.params.mailAddress
-
   refresh = async () => {
-    const mailAddress = this.getMailAddress()
+    const { mailAddress } = this.props.match.params
 
     const mails = (await VomailApi.getMailsByAddress(mailAddress)).data.mails.map(mail => ({
       ...mail,
@@ -63,7 +61,7 @@ class MailBox extends React.Component {
   }
 
   render() {
-    const mailAddress = this.getMailAddress()
+    const { mailAddress } = this.props.match.params
     const { mails, redirect, clickedMailId } = this.state
 
     if (redirect) {
@@ -96,7 +94,7 @@ class MailBox extends React.Component {
           {mails.map(mail => (
             <MailCard
               {...mail}
-              key={mail.subject}
+              key={`${mail.subject}-${mail.receivedOn}`}
               className="my-3"
               onSelect={this.selectMail}
               onClick={this.onClick}

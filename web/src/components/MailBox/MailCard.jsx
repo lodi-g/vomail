@@ -43,7 +43,7 @@ const MailCard = ({
             <span>
               From: {from.name} &lt;{from.address}&gt;
             </span>
-            <span>{moment(receivedOn).format('DD MMM YYYY')}</span>
+            <span>{moment(receivedOn).format('DD MMM YYYY HH:mm')}</span>
           </Card.Text>
         </div>
       </div>

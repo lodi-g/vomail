@@ -34,9 +34,9 @@ Notes:
 - [x] Dockerized :whale:,
 - [x] Catch & store all incoming mails,
 - [x] REST API to script with,
-- - Get mail
-- - Delete mail
-- - Mark as read/unread
+- Get mail
+- Delete mail
+- Mark as read/unread
 - [x] Nice Web UI,
 - [x] Choose random email/get your own,
 - [x] Attachments,

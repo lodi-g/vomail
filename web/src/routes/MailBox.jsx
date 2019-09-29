@@ -95,7 +95,7 @@ class MailBox extends React.Component {
             <MailCard
               {...mail}
               key={`${mail.subject}-${mail.receivedOn}`}
-              className="my-3"
+              className={`my-3 ${mail.selected ? 'bg-light' : ''}`}
               onSelect={this.selectMail}
               onClick={this.onClick}
             />

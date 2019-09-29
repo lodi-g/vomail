@@ -26,6 +26,8 @@ class Mail extends React.Component {
 
     const mail = (await VomailApi.getMail(mailId)).data
     this.setState({ mail })
+
+    VomailApi.patchMail(mailId, { read: true })
   }
 
   render() {

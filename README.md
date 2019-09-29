@@ -40,6 +40,7 @@ Notes:
 - [x] Nice Web UI,
 - [x] Choose random email/get your own,
 - [x] Attachments,
+- [x] Share-able links,
 
 ## Todo
 

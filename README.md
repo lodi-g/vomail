@@ -1,6 +1,6 @@
 ## Vomail
 
-![alt text](./.github/mailbox.png)
+![GitHub demo as a GIF](./.github/vomail.gif)
 
 ## Why
 
@@ -45,4 +45,3 @@ Notes:
 ## Todo
 
 - Delete attachments when deleting mail,
-- Take a better screenshot/GIF

@@ -1,11 +1,13 @@
 import React from 'react'
-import faker from 'faker'
+import rug from 'random-username-generator'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import ChooseMail from '../components/ChooseMail'
+
+rug.setSeperator('.')
 
 class Home extends React.Component {
   state = {
@@ -29,7 +31,7 @@ class Home extends React.Component {
     const domains = ChooseMail.getDomains()
 
     const domain = domains[Math.floor(Math.random() * domains.length)]
-    const username = faker.internet.userName()
+    const username = rug.generate()
 
     this.setState({ domain, username })
   }

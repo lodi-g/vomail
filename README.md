@@ -44,6 +44,5 @@ Notes:
 
 ## Todo
 
-- Handle HTML emails,
 - Delete attachments when deleting mail,
 - Take a better screenshot/GIF

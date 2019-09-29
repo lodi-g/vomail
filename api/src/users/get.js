@@ -22,9 +22,9 @@ const getMailsToUser = mailAddress =>
         .from({ m2: 'mails' })
         .join({ a2: 'addresses' }, { 'a2.mail_id': 'm2.id' })
         .where({ 'a2.address': mailAddress, 'a2.type': 'to' })
-        .orderBy('m2.received_on'),
+        .orderBy('m2.received_on', 'DESC'),
     )
-    .orderBy('m.received_on')
+    .orderBy('m.received_on', 'DESC')
 
 // Route handler
 const handler = async ctx => {

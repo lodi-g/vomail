@@ -47,3 +47,5 @@ Notes:
 - Handle HTML emails,
 - Mark as read when opening mail,
 - Delete attachments when deleting mail,
+- Take a better screenshot/GIF
+- Test production containers

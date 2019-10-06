@@ -29,7 +29,9 @@ const MailItem = ({ id, subject, receivedOn, from, read, selected, onSelect, onC
           <span>{read ? subject : <b>{subject}</b>}</span>
         </Col>
         <Col md="auto">
-          <span>{moment(receivedOn).format('DD MMM YYYY HH:mm')}</span>
+          <span title={moment(receivedOn).format('DD MMM YYYY HH:mm')}>
+            {moment(receivedOn).fromNow()}
+          </span>
         </Col>
       </Row>
     </div>

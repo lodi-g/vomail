@@ -1,5 +1,5 @@
 import React from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
@@ -29,8 +29,8 @@ const MailItem = ({ id, subject, receivedOn, from, read, selected, onSelect, onC
           <span>{read ? subject : <b>{subject}</b>}</span>
         </Col>
         <Col md="auto">
-          <span title={moment(receivedOn).format('DD MMM YYYY HH:mm')}>
-            {moment(receivedOn).fromNow()}
+          <span title={dayjs(receivedOn).format('DD MMM YYYY HH:mm')}>
+            {dayjs(receivedOn).fromNow()}
           </span>
         </Col>
       </Row>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
@@ -58,7 +58,7 @@ class Mail extends React.Component {
       mailBody = mail.body.replace(urlRegex, '').replace(ipRegex, '')
     }
 
-    const mReceivedOn = moment(mail.receivedOn)
+    const mReceivedOn = dayjs(mail.receivedOn)
 
     if (redirect) {
       return <Redirect to={`/${mailAddress}`} />
@@ -79,8 +79,7 @@ class Mail extends React.Component {
                 From: <b>{mail.from.name}</b> <i>&lt;{mail.from.address}&gt;</i>
               </span>
               <span>
-                {mReceivedOn.format('DD MMM YYYY HH:mm')} (
-                {moment.duration(moment().diff(mReceivedOn)).humanize()} ago)
+                {mReceivedOn.format('DD MMM YYYY HH:mm')} ({dayjs(mReceivedOn).fromNow()})
               </span>
             </Card.Text>
             <Card.Text className="d-flex justify-content-between">

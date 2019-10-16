@@ -50,6 +50,7 @@ class Mail extends React.Component {
 
     let mailBody = mail.body
     if (!showPictures) {
+      // eslint-disable-next-line
       const url = /((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?/gi
       const ip = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/gi
       const urlRegex = new RegExp(url)

@@ -6,8 +6,9 @@ import Col from 'react-bootstrap/Col'
 
 import MailboxHeader from '../components/MailBox/Header'
 import ActionBar from '../components/MailBox/ActionBar'
-import MailCard from '../components/MailBox/MailCard'
+import MailItem from '../components/MailBox/MailItem'
 import VomailApi from '../helpers/VomailApi'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class MailBox extends React.Component {
   state = {
@@ -91,15 +92,16 @@ class MailBox extends React.Component {
               This is empty. Click refresh if you are awaiting new mails.
             </p>
           )}
-          {mails.map(mail => (
-            <MailCard
-              {...mail}
-              key={`${mail.subject}-${mail.receivedOn}`}
-              className={`my-3 ${mail.selected ? 'bg-light' : ''}`}
-              onSelect={this.selectMail}
-              onClick={this.onClick}
-            />
-          ))}
+          <ListGroup>
+            {mails.map(mail => (
+              <MailItem
+                {...mail}
+                key={`${mail.subject}-${mail.receivedOn}`}
+                onSelect={this.selectMail}
+                onClick={this.onClick}
+              />
+            ))}
+          </ListGroup>
         </div>
       </Container>
     )

@@ -8,11 +8,6 @@ import { MdRefresh } from 'react-icons/md'
 const ActionBar = ({ onRefresh, onMarkUnread, onMarkRead, onDelete }) => (
   <>
     <Col>
-      <Button variant="secondary" onClick={onRefresh}>
-        <MdRefresh /> Refresh
-      </Button>
-    </Col>
-    <Col className="text-right">
       <ButtonGroup>
         <Button variant="outline-primary" onClick={onMarkUnread}>
           <FaEyeSlash className="mb-1 mr-1" />
@@ -22,11 +17,16 @@ const ActionBar = ({ onRefresh, onMarkUnread, onMarkRead, onDelete }) => (
           <FaEye className="mb-1 mr-1" />
           Mark as read
         </Button>
-        <Button variant="danger" onClick={onDelete}>
-          <FaTrash className="mb-1 mr-1" />
-          Delete
-        </Button>
       </ButtonGroup>
+      <Button variant="outline-danger" className="ml-2" onClick={onDelete}>
+        <FaTrash className="mb-1 mr-1" />
+        Delete
+        </Button>
+    </Col>
+    <Col className="text-right">
+      <Button variant="secondary" onClick={onRefresh}>
+        <MdRefresh /> Refresh
+      </Button>
     </Col>
   </>
 )
